@@ -1,24 +1,23 @@
-# client
+A web based learning application built with Vue
 
-## Project setup
+This requires our Learn Every Day backend which you can find here:
+https://github.com/mickee90/learn-every-day-express
+
+Run this after you have set up the backend:
+
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Unit tests
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+npm run test:unit
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Cypress E2E tests
+```
+npm run test:e2e 
+or 
+npm run test:e2e:headless
+```
