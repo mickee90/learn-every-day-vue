@@ -59,14 +59,14 @@ const mutations = {
 
 export const actions = {
   async login({ commit }, { username, password }) {
-    const { data } = await axios.post("/login", { username, password });
+    const { data } = await axios.post("/auth/login", { username, password });
 
-    commit("setUser", { ...data.user });
+    commit("setUser", { ...data });
 
     router.push({ name: "Posts" });
   },
   async logout({ commit }) {
-    await axios.post("/logout");
+    await axios.post("/auth/logout");
 
     commit("logout");
 
@@ -75,7 +75,7 @@ export const actions = {
   async updateUser({ commit }, payload) {
     const { data } = await axios.put("/users", payload);
 
-    commit("setUser", { ...data.user });
+    commit("setUser", { ...data.data });
   },
   async updateAvatar({ state, commit }, payload) {
     const { data } = await axios.post("/users/avatar", payload, {
@@ -84,12 +84,12 @@ export const actions = {
       }
     });
 
-    commit("setUser", { ...state.user, avatar: data.user.avatar });
+    commit("setUser", { ...state.user, avatar: data.data.user.avatar });
 
     return true;
   },
   async register({ _ }, payload) {
-    await axios.post("/register", { ...payload, email: payload.username });
+    await axios.post("/auth/register", { ...payload, email: payload.username });
 
     router.push({ name: "Login" });
   }

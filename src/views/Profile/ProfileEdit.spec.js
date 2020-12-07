@@ -234,7 +234,7 @@ describe("@/views/Profile/ProfileEdit.vue", () => {
 
   it("updates the users profile in case of correct inputs", async () => {
     const mockData = {
-      user: {
+      data: {
         username: "email@mail.com",
         first_name: "first_name",
         last_name: "last_name",
@@ -253,35 +253,35 @@ describe("@/views/Profile/ProfileEdit.vue", () => {
     const form = wrapper.find("#ProfileEditForm");
 
     const username = wrapper.find("#username");
-    username.element.value = mockData.user.username;
+    username.element.value = mockData.data.username;
     username.trigger("input");
 
     const first_name = wrapper.find("#first_name");
-    first_name.element.value = mockData.user.first_name;
+    first_name.element.value = mockData.data.first_name;
     first_name.trigger("input");
 
     const last_name = wrapper.find("#last_name");
-    last_name.element.value = mockData.user.last_name;
+    last_name.element.value = mockData.data.last_name;
     last_name.trigger("input");
 
     const email = wrapper.find("#email");
-    email.element.value = mockData.user.email;
+    email.element.value = mockData.data.email;
     email.trigger("input");
 
     const address = wrapper.find("#address");
-    address.element.value = mockData.user.address;
+    address.element.value = mockData.data.address;
     address.trigger("input");
 
     const city = wrapper.find("#city");
-    city.element.value = mockData.user.city;
+    city.element.value = mockData.data.city;
     city.trigger("input");
 
     const zip_code = wrapper.find("#zip_code");
-    zip_code.element.value = mockData.user.zip_code;
+    zip_code.element.value = mockData.data.zip_code;
     zip_code.trigger("input");
 
     const phone = wrapper.find("#phone");
-    phone.element.value = mockData.user.phone;
+    phone.element.value = mockData.data.phone;
     phone.trigger("input");
 
     await form.trigger("submit.prevent");

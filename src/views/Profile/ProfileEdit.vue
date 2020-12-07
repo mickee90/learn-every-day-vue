@@ -239,7 +239,7 @@ export default {
   },
   created() {
     this.formData = { ...this.$store.getters["auth/getUser"] };
-  },
+  }, 
   validations: {
     formData: {
       username: {

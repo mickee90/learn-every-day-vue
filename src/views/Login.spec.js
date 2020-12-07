@@ -77,7 +77,7 @@ describe("@/views/Login", () => {
     expect(wrapper.vm.$v.username.$error).toBe(false);
   });
   it("redirects to posts on successful login", async () => {
-    mock.onPost("/login").reply(200, { data: { user: { username: "johndoe@mail.com" } } });
+    mock.onPost("/auth/login").reply(200, { data: { user: { username: "johndoe@mail.com" } } });
 
     const spyDispatch = jest.spyOn(wrapper.vm.$store, "dispatch");
 

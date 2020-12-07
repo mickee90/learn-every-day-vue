@@ -32,7 +32,7 @@ describe("@/views/Register.vue", () => {
   });
 
   it("dispatch auth/register to be called + redirect to login view", async () => {
-    mock.onPost("/register").reply(200);
+    mock.onPost("/auth/register").reply(200);
     const spyDispatch = jest.spyOn(wrapper.vm.$store, "dispatch");
 
     wrapper.vm.username = "valid_username@mail.com";

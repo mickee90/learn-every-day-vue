@@ -30,7 +30,7 @@ const actions = {
       return false;
     }
 
-    commit("setPosts", response.data.posts);
+    commit("setPosts", response.data.data);
   },
 
   /* eslint-disable-next-line */
@@ -53,7 +53,7 @@ const actions = {
 
     router.push({
       name: "PostShow",
-      params: { id: response.data.post.id }
+      params: { id: response.data.data.id }
     });
   },
 
@@ -72,7 +72,7 @@ const actions = {
       return false;
     }
 
-    commit("setPost", response.data.post);
+    commit("setPost", response.data.data);
   },
 
   async deletePost({ commit, state }) {
@@ -110,9 +110,9 @@ const actions = {
       return false;
     }
 
-    commit("setPost", response.data.post);
+    commit("setPost", response.data.data);
 
-    router.push({ name: "PostShow", params: { id: response.data.post.id } });
+    router.push({ name: "PostShow", params: { id: response.data.data.id } });
   }
 };
 
