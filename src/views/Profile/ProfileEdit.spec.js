@@ -31,7 +31,8 @@ const defaultUser = {
   city: "",
   phone: "",
   disabled: false,
-  banned: false
+  banned: false,
+  avatar: "default_avatar"
 };
 
 describe("@/views/Profile/ProfileEdit.vue", () => {
@@ -305,11 +306,47 @@ describe("@/views/Profile/ProfileEdit.vue", () => {
     expect(wrapper.vm.$store.getters["auth/getUser"].phone).toBe("phone");
   });
 
+  it("shows a default avatar in case of the user has not chosen one themselves", async () => {
+    const first_letter = wrapper.vm.$store.getters["auth/getUser"].first_name[0]
+      ? wrapper.vm.$store.getters["auth/getUser"].first_name[0].toUpperCase()
+      : "";
+    const second_letter = wrapper.vm.$store.getters["auth/getUser"].last_name[0]
+      ? wrapper.vm.$store.getters["auth/getUser"].last_name[0].toUpperCase()
+      : "";
+
+    expect(wrapper.text()).toContain(first_letter + second_letter);
+
+    const newMockData = {
+      data: {
+        first_name: "Anna",
+        last_name: "Smith"
+      }
+    };
+    mock.onPut("/users").reply(200, { ...newMockData });
+
+    const form = wrapper.find("#ProfileEditForm");
+
+    const first_name = wrapper.find("#first_name");
+    first_name.element.value = newMockData.data.first_name;
+    first_name.trigger("input");
+
+    const last_name = wrapper.find("#last_name");
+    last_name.element.value = newMockData.data.last_name;
+    last_name.trigger("input");
+
+    await form.trigger("submit.prevent");
+
+    await wrapper.vm.$nextTick();
+
+    await flushPromises();
+
+    expect(wrapper.text()).toContain("AS");
+  });
+
   // @todo how to test the flash message?
   // it("shows success message when updating the profile successfully", async () => {
-
   //   const mockData = {
-  //     user: {
+  //     data: {
   //       username: "email@mail.com",
   //       first_name: "first_name",
   //       last_name: "last_name",
@@ -328,35 +365,35 @@ describe("@/views/Profile/ProfileEdit.vue", () => {
   //   const form = wrapper.find("#ProfileEditForm");
 
   //   const username = wrapper.find("#username");
-  //   username.element.value = mockData.user.username;
+  //   username.element.value = mockData.data.username;
   //   username.trigger("input");
 
   //   const first_name = wrapper.find("#first_name");
-  //   first_name.element.value = mockData.user.first_name;
+  //   first_name.element.value = mockData.data.first_name;
   //   first_name.trigger("input");
 
   //   const last_name = wrapper.find("#last_name");
-  //   last_name.element.value = mockData.user.last_name;
+  //   last_name.element.value = mockData.data.last_name;
   //   last_name.trigger("input");
 
   //   const email = wrapper.find("#email");
-  //   email.element.value = mockData.user.email;
+  //   email.element.value = mockData.data.email;
   //   email.trigger("input");
 
   //   const address = wrapper.find("#address");
-  //   address.element.value = mockData.user.address;
+  //   address.element.value = mockData.data.address;
   //   address.trigger("input");
 
   //   const city = wrapper.find("#city");
-  //   city.element.value = mockData.user.city;
+  //   city.element.value = mockData.data.city;
   //   city.trigger("input");
 
   //   const zip_code = wrapper.find("#zip_code");
-  //   zip_code.element.value = mockData.user.zip_code;
+  //   zip_code.element.value = mockData.data.zip_code;
   //   zip_code.trigger("input");
 
   //   const phone = wrapper.find("#phone");
-  //   phone.element.value = mockData.user.phone;
+  //   phone.element.value = mockData.data.phone;
   //   phone.trigger("input");
 
   //   await form.trigger("submit.prevent");
@@ -371,7 +408,7 @@ describe("@/views/Profile/ProfileEdit.vue", () => {
   //   expect(spyDispatch).toHaveBeenCalledWith("auth/updateUser", { ...wrapper.vm.formData });
 
   //   await wrapper.vm.$nextTick();
-  //   expect(wrapper.text()).toContain("Successfully updated");
+  //   expect(wrapper.text()).toContain("Profile updated");
   // });
 });
 

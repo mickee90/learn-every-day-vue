@@ -10,13 +10,14 @@
         >
           <div class="mb-10">
             <label for="avatarFileInput" class="w-100">
-              <div class="m-auto flex justify-center" style="max-width: 200px;">
+              <div class="avatar-wrapper">
+                <div class="avatar-placeholder" v-if="formData.avatar && formData.avatar === 'default_avatar'">{{ initials() }}</div>
                 <img
                   id="avatar"
                   :src="avatarUrl"
                   :alt="formData.first_name"
                   class="avatar max-w-full"
-                  v-if="formData.avatar !== null && formData.avatar !== undefined"
+                  v-else-if="formData.avatar !== null && formData.avatar !== undefined"
                 />
                 <!-- <font-awesome-icon icon="handshake" class="text-6xl" v-else /> -->
               </div>
@@ -183,6 +184,11 @@ export default {
     }
   },
   methods: {
+    initials() {
+      const first_letter = this.formData.first_name[0] ? this.formData.first_name[0].toUpperCase() : '';
+      const second_letter = this.formData.last_name[0] ? this.formData.last_name[0].toUpperCase() : '';
+      return first_letter + second_letter;
+    },
     ...mapActions("auth", ["updateUser"]),
     async onSubmit() {
       this.$v.$touch();
@@ -239,7 +245,7 @@ export default {
   },
   created() {
     this.formData = { ...this.$store.getters["auth/getUser"] };
-  }, 
+  },
   validations: {
     formData: {
       username: {
@@ -261,4 +267,22 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    font-size: 75px;
+    line-height: 150px;
+    color: #fff;
+    text-align: center;
+}
+.avatar-placeholder {
+  background-color: green;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+</style>
