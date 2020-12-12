@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "@/router/index";
-import { baseMessage } from "@/helpers/FlashMessage";
+import { baseMessage } from "@/utils/FlashMessage";
 
 let instance;
 if (window.Cypress) {

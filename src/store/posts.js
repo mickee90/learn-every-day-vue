@@ -1,6 +1,6 @@
 import axios from "@/axios";
 import router from "@/router";
-import { baseMessage } from "@/helpers/FlashMessage";
+import { baseMessage } from "@/utils/FlashMessage";
 
 const getters = {
   getPosts(state) {
@@ -18,7 +18,7 @@ const state = {
 
 const actions = {
   async init({ commit }) {
-    const response = await axios.get("/posts");
+    const response = await axios.get("/posts", { params: router.history.current.query });
 
     if (!response) {
       this.flashMessage.error(
@@ -31,10 +31,11 @@ const actions = {
     }
 
     commit("setPosts", response.data.data);
+    commit("pagination/setPagination", response.data, { root: true });
   },
 
   /* eslint-disable-next-line */
-  async createPost({}, payload) {
+  async createPost({ commit }, payload) {
     const response = await axios.post("/posts", {
       title: payload.title,
       published_date: payload.published_date,
@@ -50,6 +51,8 @@ const actions = {
       );
       return false;
     }
+
+    commit("addPost", response.data.data);
 
     router.push({
       name: "PostShow",
@@ -122,6 +125,12 @@ const mutations = {
   },
   setPost(state, post) {
     state.post = post;
+  },
+  addPost(state, post) {
+    state.posts.push(post);
+  },
+  setPagination(state, paginationObject) {
+    state.pagination = paginationObject;
   }
 };
 

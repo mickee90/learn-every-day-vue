@@ -7,6 +7,13 @@
     <div v-else>
       <FilterBox :posts="posts" @postListSorted="onSortedPosts" />
       <PostItem v-for="post in sortedPosts" :key="post.id" :post="post"></PostItem>
+      <PaginationBox
+        :currentPage="pagination.currentPage"
+        :pageLinks="pagination.pageLinks"
+        :pageSize="pagination.pageSize"
+        :previousPage="pagination.previousPage"
+        :nextPage="pagination.nextPage"
+      />
     </div>
     <div class="flex justify-end">
       <router-link
@@ -21,28 +28,30 @@
 <script>
 import PostItem from "./PostItem";
 import FilterBox from "../../components/Layout/FilterBox";
+import PaginationBox from "../../components/Layout/PaginationBox";
 import { mapState, mapActions } from "vuex";
 import BounceLoader from "vue-spinner/src/BounceLoader.vue";
 
 export default {
-  components: { PostItem, BounceLoader, FilterBox },
+  components: { PostItem, BounceLoader, FilterBox, PaginationBox },
   data() {
     return {
       sortedPosts: []
-    }
+    };
   },
   computed: {
     ...mapState("auth", ["user", "isLoggedIn"]),
     ...mapState("posts", ["posts"]),
+    ...mapState("pagination", ["pagination"])
   },
   methods: {
     ...mapActions("posts", ["init"]),
     onSortedPosts(value) {
-      this.sortedPosts = [...value];
+      this.sortedPosts = value;
     }
   },
   async created() {
-    this.init();
+    await this.init();
     this.sortedPosts = this.posts;
   }
 };

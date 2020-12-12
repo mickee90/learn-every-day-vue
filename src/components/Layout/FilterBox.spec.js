@@ -1,5 +1,6 @@
 import FilterBox from "@/components/Layout/FilterBox";
 import { shallowMount } from "@vue/test-utils";
+import router from "@/router";
 
 describe("@/components/Layout/FilterBox.vue", () => {
   let wrapper;
@@ -13,7 +14,8 @@ describe("@/components/Layout/FilterBox.vue", () => {
     ];
 
     wrapper = shallowMount(FilterBox, {
-      propsData: { posts }
+      propsData: { posts },
+      router
     });
   });
 

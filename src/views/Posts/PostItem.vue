@@ -15,7 +15,7 @@
   </router-link>
 </template>
 <script>
-import { fullDate } from "../../helpers/DateTimes";
+import { fullDate } from "@/utils/DateTimes";
 
 export default {
   props: {

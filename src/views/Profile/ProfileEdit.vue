@@ -11,7 +11,12 @@
           <div class="mb-10">
             <label for="avatarFileInput" class="w-100">
               <div class="avatar-wrapper">
-                <div class="avatar-placeholder" v-if="formData.avatar && formData.avatar === 'default_avatar'">{{ initials() }}</div>
+                <div
+                  class="avatar-placeholder"
+                  v-if="formData.avatar && formData.avatar === 'default_avatar'"
+                >
+                  {{ initials() }}
+                </div>
                 <img
                   id="avatar"
                   :src="avatarUrl"
@@ -162,7 +167,7 @@
 <script>
 import { mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
-import { baseMessage } from "@/helpers/FlashMessage"
+import { baseMessage } from "@/utils/FlashMessage";
 
 export default {
   data() {
@@ -185,8 +190,12 @@ export default {
   },
   methods: {
     initials() {
-      const first_letter = this.formData.first_name[0] ? this.formData.first_name[0].toUpperCase() : '';
-      const second_letter = this.formData.last_name[0] ? this.formData.last_name[0].toUpperCase() : '';
+      const first_letter = this.formData.first_name[0]
+        ? this.formData.first_name[0].toUpperCase()
+        : "";
+      const second_letter = this.formData.last_name[0]
+        ? this.formData.last_name[0].toUpperCase()
+        : "";
       return first_letter + second_letter;
     },
     ...mapActions("auth", ["updateUser"]),
@@ -203,9 +212,9 @@ export default {
 
       try {
         await this.updateUser({ ...this.formData });
-        this.flashMessage.success(baseMessage({title: "Profile updated"}));
+        this.flashMessage.success(baseMessage({ title: "Profile updated" }));
       } catch (_) {
-        this.flashMessage.error(baseMessage({title: "Updating profile failed"}));
+        this.flashMessage.error(baseMessage({ title: "Updating profile failed" }));
       }
     },
     onChosenFile() {
@@ -237,9 +246,9 @@ export default {
       if (result) {
         this.chosenAvatar = "";
         this.formData = { ...this.$store.getters["auth/getUser"] };
-        this.flashMessage.success(baseMessage({title: "Avatar updated"}));
+        this.flashMessage.success(baseMessage({ title: "Avatar updated" }));
       } else {
-        this.flashMessage.error(baseMessage({title: "Updating avatar failed"}));
+        this.flashMessage.error(baseMessage({ title: "Updating avatar failed" }));
       }
     }
   },
@@ -269,20 +278,20 @@ export default {
 
 <style>
 .avatar-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
-    font-size: 75px;
-    line-height: 150px;
-    color: #fff;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  font-size: 75px;
+  line-height: 150px;
+  color: #fff;
+  text-align: center;
 }
 .avatar-placeholder {
   background-color: green;
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 </style>

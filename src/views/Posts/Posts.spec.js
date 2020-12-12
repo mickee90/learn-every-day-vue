@@ -1,5 +1,6 @@
 import Posts from "@/views/Posts/Posts.vue";
 import PostItem from "@/views/Posts/PostItem.vue";
+import PaginationBox from "@/components/Layout/Paginationbox";
 import { shallowMount } from "@vue/test-utils";
 import BounceLoader from "vue-spinner/src/BounceLoader.vue";
 
@@ -8,6 +9,7 @@ describe("@/views/Posts/Posts.vue", () => {
   let authState;
   let state;
   let posts;
+  let paginationState;
 
   beforeEach(() => {
     posts = [
@@ -23,9 +25,24 @@ describe("@/views/Posts/Posts.vue", () => {
       },
       isLoggedIn: true
     };
-    state = { posts: null };
+    state = {
+      posts: null
+    };
+    paginationState = {
+      pagination: {
+        currentPage: 1,
+        pageSize: 15,
+        currentSortId: 1,
+        sortItems: [
+          { id: 1, title: "Date - Desc", sortProp: "published_date", sortType: "desc" },
+          { id: 2, title: "Date - Asc", sortProp: "published_date", sortType: "asc" },
+          { id: 3, title: "Title - Desc", sortProp: "title", sortType: "desc" },
+          { id: 4, title: "Title - Asc", sortProp: "title", sortType: "asc" }
+        ]
+      }
+    };
 
-    wrapper = mountWithStore(authState, state);
+    wrapper = mountWithStore(authState, state, paginationState);
   });
 
   it("Lists correct number of posts", async () => {
@@ -58,7 +75,7 @@ describe("@/views/Posts/Posts.vue", () => {
   });
 });
 
-function mountWithStore(authState, state) {
+function mountWithStore(authState, state, paginationState) {
   const actions = {
     init: jest.fn()
   };
@@ -72,11 +89,15 @@ function mountWithStore(authState, state) {
         posts: {
           state,
           actions
+        },
+        pagination: {
+          state: paginationState
         }
       },
       stubs: {
         PostItem,
-        BounceLoader
+        BounceLoader,
+        PaginationBox
       },
       router: true
     })

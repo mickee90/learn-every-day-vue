@@ -59,7 +59,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { fullDate } from "../../helpers/DateTimes";
+import { fullDate } from "@/utils/DateTimes";
 import { required } from "vuelidate/lib/validators";
 
 export default {

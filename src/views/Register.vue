@@ -108,7 +108,7 @@
 
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import { baseMessage } from "@/helpers/FlashMessage"
+import { baseMessage } from "@/utils/FlashMessage";
 
 export default {
   data() {
@@ -135,7 +135,12 @@ export default {
           confirm_password: this.confirm_password
         });
       } catch (error) {
-        this.flashMessage.error(baseMessage({title: "Registration failed", message: 'Ops! Something went wrong. Please try again'}));
+        this.flashMessage.error(
+          baseMessage({
+            title: "Registration failed",
+            message: "Ops! Something went wrong. Please try again"
+          })
+        );
       }
     }
   },

@@ -32,7 +32,9 @@
           :value="formatPublishedDate()"
           @change="event => (post.published_date = event.target.value)"
         />
-        <p v-if="$v.post.published_date.$error" class="text-red-500 text-xs italic">Enter a date.</p>
+        <p v-if="$v.post.published_date.$error" class="text-red-500 text-xs italic">
+          Enter a date.
+        </p>
       </div>
 
       <div class="mb-4">
@@ -57,7 +59,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { fullDate } from "../../helpers/DateTimes";
+import { fullDate } from "../../utils/DateTimes";
 import { required } from "vuelidate/lib/validators";
 
 export default {

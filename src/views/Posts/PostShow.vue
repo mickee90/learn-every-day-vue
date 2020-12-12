@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { fullDateTime } from "../../helpers/DateTimes";
+import { fullDateTime } from "../../utils/DateTimes";
 export default {
   computed: {
     ...mapState("posts", ["post"])
