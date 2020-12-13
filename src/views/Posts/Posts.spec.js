@@ -13,9 +13,34 @@ describe("@/views/Posts/Posts.vue", () => {
 
   beforeEach(() => {
     posts = [
-      { id: 1, user_id: 1, title: "First post" },
-      { id: 2, user_id: 1, title: "Second post" },
-      { id: 3, user_id: 1, title: "Third post" }
+      {
+        id: 1,
+        user_id: 1,
+        title: "First post",
+        tags: [
+          { id: 1, title: "USA", user_id: 1 },
+          { id: 2, title: "Travel", user_id: 2 }
+        ]
+      },
+      { id: 2, user_id: 1, title: "Second post", tags: [] },
+      {
+        id: 3,
+        user_id: 1,
+        title: "Third post",
+        tags: [
+          { id: 1, title: "Programming", user_id: 1 },
+          { id: 3, title: "Javascript", user_id: 1 },
+          { id: 4, title: "Vue", user_id: 1 },
+          { id: 5, title: "Vuex", user_id: 1 },
+          { id: 6, title: "Vue 2.0", user_id: 1 }
+        ]
+      },
+      {
+        id: 4,
+        user_id: 2,
+        title: "Fouth post",
+        tags: [{ id: 7, title: "Programming", user_id: 2 }]
+      }
     ];
 
     authState = {
@@ -50,7 +75,7 @@ describe("@/views/Posts/Posts.vue", () => {
     wrapper.vm.sortedPosts = posts;
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.findAll(".post-item").length).toBe(3);
+    expect(wrapper.findAll(".post-item").length).toBe(4);
   });
   // @TODO: Requires axios + backend api mock
   // it("Only lists the posts made by the user", async () => {});

@@ -13,6 +13,11 @@
     "reset:database": "cd ../server && sequelize-cli db:seed:undo:all --env test && sequelize-cli db:seed:all --env test"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
     "@smartweb/vue-flash-message": "^0.6.10",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",

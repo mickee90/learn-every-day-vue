@@ -4,6 +4,10 @@ import "./registerServiceWorker";
 import Vuelidate from "vuelidate";
 import FlashMessage from "@smartweb/vue-flash-message";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTag, faTags } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 import router from "./router";
 
 import store from "./store";
@@ -12,6 +16,10 @@ import "./assets/styles/index.css";
 
 Vue.use(Vuelidate);
 Vue.use(FlashMessage);
+
+library.add(faTag);
+library.add(faTags);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 // Globally register all `_base`-prefixed components
 import "./components/Globals/_globals";
